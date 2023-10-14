@@ -1,4 +1,23 @@
 import React, { useState } from 'react'
+const Statistics = (props) => {
+  const { good, neutral, bad } = props
+
+  const total = good + neutral + bad
+  const average = (good - bad) / total || 0
+  const positivePercentage = (good / total) * 100 || 0
+
+  return (
+    <div>
+      <h2>Feedback Statistics</h2>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total}</p>
+      <p>Average: {average}</p>
+      <p>Positive Feedback Percentage: {positivePercentage}%</p>
+    </div>
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
@@ -14,9 +33,6 @@ const App = () => {
       setBad(bad + 1)
     }
   }
-  const total = good+neutral+bad
-  const average = (good - bad) / total || 0
-  const positivePercentage = (good / total) * 100 || 0
 
   return (
     <div>
@@ -25,14 +41,9 @@ const App = () => {
       <button onClick={() => handleFeedback('neutral')}>Neutral</button>
       <button onClick={() => handleFeedback('bad')}>Bad</button>
 
-      <h2>Feedback Statistics</h2>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Average: {average}</p>
-      <p>Positive Feedback Percentage: {positivePercentage}%</p>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
+
 export default App
