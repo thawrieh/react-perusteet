@@ -1,27 +1,37 @@
 import React, { useState } from 'react'
 
-const Statistics = (props) => {
-  const { good, neutral, bad } = props
-
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>{text}: {value}</p>
+  )
+}
+const Statistics = ({ good, neutral, bad }) => {
   const total = good + neutral + bad
-  const average =(good - bad) / total
-  const positivePercentage = (good / total) * 100
+  const average = total === 0 ? 0 : (good - bad) / total
+  const positivePercentage = total === 0 ? 0 : (good / total) * 100
 
   if (total === 0) {
-    return <div>
-    <p>No feedback given</p></div>
+    return <div>No feedback given</div>
   }
 
   return (
     <div>
       <h2>Feedback Statistics</h2>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Average: {average}</p>
-      <p>Positive Feedback Percentage: {positivePercentage}%</p>
+      <StatisticLine text="Good" value={good} />
+      <StatisticLine text="Neutral" value={neutral} />
+      <StatisticLine text="Bad" value={bad} />
+      <StatisticLine text="Total" value={total} />
+      <StatisticLine text="Average" value={average} />
+      <StatisticLine text="Positive Feedback Percentage" value={`${positivePercentage}%`} />
     </div>
+  )
+}
+
+const Button = ({ onClick, text }) => {
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
   )
 }
 const App = () => {
@@ -42,9 +52,9 @@ const App = () => {
   return (
     <div>
       <h1>Unicafe Feedback</h1>
-      <button onClick={() => handleFeedback('good')}>Good</button>
-      <button onClick={() => handleFeedback('neutral')}>Neutral</button>
-      <button onClick={() => handleFeedback('bad')}>Bad</button>
+      <Button onClick={() => handleFeedback('good')} text="Good" />
+      <Button onClick={() => handleFeedback('neutral')} text="Neutral" />
+      <Button onClick={() => handleFeedback('bad')} text="Bad" />
 
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
