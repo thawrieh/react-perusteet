@@ -14,6 +14,9 @@ const App = () => {
       setBad(bad + 1)
     }
   }
+  const total = good+neutral+bad
+  const average = (good - bad) / total || 0
+  const positivePercentage = (good / total) * 100 || 0
 
   return (
     <div>
@@ -26,8 +29,10 @@ const App = () => {
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
+      <p>Total: {total}</p>
+      <p>Average: {average}</p>
+      <p>Positive Feedback Percentage: {positivePercentage}%</p>
     </div>
   )
 }
-
 export default App
